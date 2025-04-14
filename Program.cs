@@ -1,5 +1,3 @@
-using System.Text.Json;
-
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
@@ -14,22 +12,12 @@ app.MapGet("/status", () =>
 
 app.MapGet("/quotes", () =>
 {
-  string quotesJson = File.ReadAllText("quotes.json");
-  List<Quote> quotes = JsonSerializer.Deserialize<List<Quote>>(quotesJson);
-  return quotes;
+  return QuoteService.GetAllQuotes();
 });
 
 app.MapPost("/quotes", (Quote content) =>
 {
-  // Load existing data
-  string oldQuotesJson = File.ReadAllText("quotes.json");
-  List<Quote> oldQuotes = JsonSerializer.Deserialize<List<Quote>>(oldQuotesJson);
-
-  oldQuotes.Add(content);
-
-  // Write back to disk
-  string newQuotesJson = JsonSerializer.Serialize(oldQuotes);
-  File.WriteAllText("quotes.json", newQuotesJson);
+  QuoteService.SaveQuote(content);
   return Results.Created();
 });
 
