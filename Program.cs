@@ -6,6 +6,11 @@ app.MapGet("/status", () =>
   return "A-OK!";
 });
 
+app.MapGet("/", () =>
+{
+  return "Reading something";
+});
+
 app.MapPost("/", () =>
 {
   return "Creating something";
