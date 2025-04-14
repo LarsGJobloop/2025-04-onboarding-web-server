@@ -1,6 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+List<Quote> qoutes = new List<Quote>();
+
 app.MapGet("/status", () =>
 {
   return "A-OK!";
@@ -8,22 +10,23 @@ app.MapGet("/status", () =>
 
 app.MapGet("/", () =>
 {
-  return "Reading something";
+  return qoutes;
 });
 
-app.MapPost("/", () =>
+app.MapPost("/", (Quote content) =>
 {
-  return "Creating something";
+  qoutes.Add(content);
+  return Results.Created();
 });
 
-app.MapPut("/", () =>
-{
-  return "Updating something";
-});
+// app.MapPut("/", () =>
+// {
+//   return "Updating something";
+// });
 
-app.MapDelete("/", () =>
-{
-  return "Deleting something";
-});
+// app.MapDelete("/", () =>
+// {
+//   return "Deleting something";
+// });
 
 app.Run();
