@@ -1,10 +1,9 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("/", () =>
+app.MapGet("/status", () =>
 {
-  Console.WriteLine("Whoo! We got a message!");
-  return "Hello World!";
+  return "A-OK!";
 });
 
 app.MapPost("/", () =>
